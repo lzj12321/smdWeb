@@ -1,0 +1,123 @@
+<html>
+    <style>      
+          .input{
+                width:400px;
+                font-size: 35px;
+                color:chocolate;
+                text-align: center;
+            }
+
+            .title{
+                font-size: 45px;
+                position: relative;
+                color: teal;
+            }
+
+            a.hyperLink{
+                font-size:30px;
+                color:dark;
+                background-color:gray;
+                text-decoration:none;
+                position:relative;
+            }
+
+            h1{
+                text-align: center;
+                font-size: 70px;
+                color:blue;
+            }
+
+
+            .pushbutton{
+                font-size: 40px;
+                background-color: cornflowerblue;
+                color:blue;
+                border: cyan;
+                margin: 20px;
+                transition-duration: 0.2s;
+            }
+
+            body{
+                line-height: 30px;
+            }
+    </style>
+
+    <script>
+       function submitData()
+            {
+                var model=document.getElementById('model').value;
+                if(model==''){
+                    alert('型号不能为空!');
+                    return;
+                }
+
+                var date=document.getElementById('date').value;
+                if(date==''){
+                    alert('请选择日期!');
+                    return;
+                }
+
+                var num=document.getElementById("hourProductNum").value;
+                if(num===""||num==0){
+                    alert("输入的生产数量不能为空!");
+                    return;
+                }
+
+                var sendData='model='+model+'&num='+num.toString()+'&time='+date;
+                var xmlhttp=new XMLHttpRequest();
+                xmlhttp.open("POST","../php/smdAddProductionPlan.php",true);
+                xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xmlhttp.send(sendData);
+                xmlhttp.onreadystatechange=function(){
+                if(xmlhttp.readyState==4&&xmlhttp.status==200){
+                    var result=xmlhttp.responseText;
+                    alert(result);
+                }
+                }
+            }
+
+            function clearInput(){
+                document.getElementById('model').value='';
+                document.getElementById("hourProductNum").value=''
+            }
+    </script>
+
+    <head>
+        <meta charset="utf8">
+        <title>添加生产计划</title>
+    </head>
+
+    <body align='center' background="../img/modelS.jpg">
+        <div class='hyperLink'>
+        <a href='../php/smdDisplayProductionData.php' class='hyperLink'>输入数据查询</a>
+        <a href='./smdDisplay.html' class='hyperLink'>生产数据展示</a>
+        <a href='../php/smd.php' class='hyperLink'>生产数据插入</a>
+        </div>
+        <br>
+        <h1 id='pageHead'>SMD生产计划添加</h1>
+        <br>
+        <div>
+        <p class="title">型号</p>
+        <input name=model type="text" class =input id='model'>
+        </div>
+        <br>
+        <p class="title">日期</p>
+        <input name=time type="date" class =input id='date'>
+        <br>
+        <br>
+        <p class="title">计划每小时产量</p>
+        <input name=num type="number" class =input id='hourProductNum'>
+        <br>
+        <br>
+        <input name='button' type="button" value="确认" class="pushbutton" onclick="submitData(this)">
+        <input name='button' type="reset" value="重置" class="pushbutton" onclick="clearInput()">
+    </body>
+
+    <script>
+        var time=new Date();
+        var day = ("0" + time.getDate()).slice(-2);
+        var month = ("0" + (time.getMonth() + 1)).slice(-2);
+        date = time.getFullYear() + "-" + (month) + "-" + (day);
+        document.getElementById('date').value=date;
+    </script>
+</html>

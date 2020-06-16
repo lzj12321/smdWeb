@@ -1,0 +1,108 @@
+body
+{
+    background-image: url("../img/timg.jpg");
+}
+
+/* .container  */
+/* { */
+    /* width:960px; */
+    /* margin:80px auto; */
+/* } */
+
+.editButton {
+    display: none;
+    position: relative;
+    background-color: #4CAF50;
+    border: none;
+    font-size: 20px;
+    font-weight:bold;
+    color:blue;
+    padding: 5px;
+    width: 130px;
+    text-align: center;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 1;
+}
+
+.editButton:after {
+    content: "";
+    /* background: #90EE90; */
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px!important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+.editButton:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+}
+
+table{
+    font-weight: bold;
+    border-color: goldenrod;
+    border-collapse: collapse;
+    text-align: center;
+    align-items: center;
+    font-size: 35px;
+    color:goldenrod;
+}
+
+td:hover
+{
+    background-color:#aaaacc;
+}
+
+input.txtField
+{
+    width:100px;
+    height:30px;
+}
+
+td.reachProduct{
+    color:#006600;
+}
+
+td.unreachProduct{
+    color: red;
+}
+
+td.productTd{
+    color:goldenrod;
+}
+
+/* input{
+    font-size: 30px; */
+/* } */
+
+.optLink
+{
+    text-decoration:none;
+    color:#f46948;
+}
+
+.optLink:hover
+{
+    color:#cc0033;
+}
+
+h1{
+    text-align: center;
+    font-size: 90px;
+    color:yellowgreen;
+}
+
+
+td.testClass{
+    display: none;
+}

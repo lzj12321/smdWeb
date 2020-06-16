@@ -1,0 +1,172 @@
+<html>
+    <meta charset="utf-8">
+    <style>
+        #pageHead
+        {
+            color: royalblue;
+            text-align: center;
+            font-size: 80px;
+        }
+
+        #pageTable
+        {
+            border-color: goldenrod;
+            border-collapse: collapse;
+            text-align: center;
+            align-items: center;
+            font-size: 30px;
+            color: blue;
+        }
+
+        #timeHead{
+            color:lawngreen;
+        }
+
+        a.hyperLink{
+            font-size:30px;
+            color:dark;
+            background-color:gray;
+            text-decoration:none;
+            position:relative;
+        }
+
+    </style>
+    <script>
+        function addTableRow()
+        {
+            var table=document.getElementById('pageTable');
+            var tr=document.createElement("tr");
+            var model_th=document.createElement("th");
+            model_th.innerHTML='AD2115';
+            var code_th=document.createElement("th");
+            var currDate=Date.now().toLocaleString();
+            code_th.innerHTML=currDate;
+            var production_th=document.createElement("th");
+            production_th.innerHTML='112';
+            tr.appendChild(model_th);
+            tr.appendChild(code_th);
+            tr.appendChild(production_th);
+            table.appendChild(tr);
+        }
+
+        function delTableRow()
+        {
+            var currDateTime=new Date();
+            var currHour=currDateTime.getHours();
+            var table=document.getElementById('pageTable');
+        }
+
+    </script>
+    <head>
+        <meta charset="utf8">
+        <title>生产动态</title>
+    </head>
+    <body id='pageBody' background="../img/timg.jpg">
+        <div class='hyperLink'>
+        <a href='../php/smdDisplayProductionData.php' class='hyperLink'>输入数据查询</a>
+        <a href='../php/smd.php' class='hyperLink'>生产数据插入</a>
+        <a href='./smdAddProductionPlan.html' class='hyperLink'>生产计划插入</a>
+        </div>
+    <h1 id='pageHead'>SMD生产数据统计</h1>
+    <h2 id='timeHead'></h2>
+        <div id='tableDiv'>
+         <script>
+            var table=document.createElement('table');
+            table.setAttribute('id','pageTable');
+            table.border='1';
+            table.width='90%';
+            table.align='center';
+            
+            var tableDiv=document.getElementById('tableDiv');
+            //    document.querySelector('#tableDiv').appendChild(_table);
+            tableDiv.appendChild(table);
+
+            var xmlhttp=new XMLHttpRequest();
+            xmlhttp.open("POST","../php/smdGetProductionData.php",true);
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xmlhttp.send();
+            xmlhttp.onreadystatechange=function(){
+                if(xmlhttp.readyState==4&&xmlhttp.status==200){
+                    var currDateTime=new Date();
+                    var currHour=currDateTime.getHours();
+                    var row=table.insertRow();
+                    row.innerHTML='型号';
+                    var cell1=row.insertCell();
+                    cell1.innerHTML='小时计划产量';
+
+                    ///插入编码///
+                    // var cell2=row.insertCell();
+                    // cell2.innerHTML='编码';
+
+                    if(currHour>=8&&currHour<20)
+                    {
+                        for(var i=8;i<20;++i){
+                            var cell=row.insertCell();
+                            cell.innerHTML=i.toString()+':00-'+(i+1).toString()+':00';
+                            cell.setAttribute('style','width:80px');
+                    }
+                        document.getElementById('pageHead').innerHTML='SMD生产数据统计(白班)';
+                    }
+                    else{
+                        for(var i=20;i<32;++i){
+                            var cell=row.insertCell();
+                            cell.innerHTML=(i%24).toString()+':00-'+(i%24+1).toString()+':00';
+                            cell.setAttribute('style','width:80px');
+                        }
+                        document.getElementById('pageHead').innerHTML='SMD生产数据统计(夜班)';
+                    }
+                    var _table=document.getElementById('pageTable');
+                    var queryResult=xmlhttp.responseText;
+                    // alert(queryResult);
+                    var resultArray=queryResult.split('\n');
+                    for(var i=0;i<resultArray.length;++i)
+                    {
+                        if(resultArray[i]=='')
+                        {
+                            return;
+                        }
+
+                        var _row=table.insertRow();
+                        var modelCell=_row.insertCell();
+                        modelCell.innerHTML=resultArray[i].split(' ')[0];
+                        var planProductNumCell=_row.insertCell();
+                        var planProductNum=resultArray[i].split(' ')[1].split(':')[0];
+                        planProductNumCell.innerHTML=planProductNum;
+                        
+                        ///插入编码///
+                        // var codeCell=_row.insertCell();
+                        // codeCell.innerHTML='NULL';
+
+                        var hourProductNumArray=resultArray[i].split(' ')[1].split(':')[1];
+                        for(var j=0;j<12;j++)
+                        {
+                            var hourProductCell=_row.insertCell();
+                            hourProductCell.setAttribute('point-size','30px');
+                            var hourProduct=hourProductNumArray.split(',')[j];
+                            // if(hourProduct!=0){
+                                hourProductCell.innerHTML=hourProduct;
+                            // }
+                            if(parseInt(hourProduct)<parseInt(planProductNum)){
+                                hourProductCell.style.color="red";
+                            }
+                            else{
+                                hourProductCell.style.color="lawngreen";
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+        
+        <!-- <script>
+            var time=new Date();
+            var day = ("0" + time.getDate()).slice(-2);
+            var month = ("0" + (time.getMonth() + 1)).slice(-2);
+            var date = time.getFullYear() + "-" + (month) + "-" + (day);
+            document.getElementById('timeHead').innerHTML=date;
+        </script> -->
+    </div>
+    <!-- <input type="button" value="添加一行" onclick="addTableRow()"> -->
+    <!-- <input type="button" value="删除一行" onclick="delTableRow()"> -->
+</body>
+</html>
