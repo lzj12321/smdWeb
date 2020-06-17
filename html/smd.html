@@ -6,9 +6,13 @@
         <link rel="stylesheet" href="../css/smd.css">
     </head>
     <body>
+        <script src=../js/jquery.js></script>
         <script>
             var currDateTime=new Date();
             var currHour=currDateTime.getHours();
+            var currYear=currDateTime.getFullYear();
+            var currMonth=currDateTime.getMonth();
+            var currDay=currDateTime.getDate();
             if(currHour>=8&&currHour<20)
             {
                 document.write('<h1>SMD生产动态(白班)</h1>');
@@ -17,6 +21,22 @@
             {
                 document.write('<h1>SMD生产动态(夜班)</h1>');
             }
+
+
+            document.write('<p class="date" id="date_P">'+currYear+'-'+currMonth+'-'+currDay+'</h2>')
+
+            var xy=$('h1').offset();
+            var _height=$('h1').height();
+            // console.log(xy);
+            console.log(_height);
+
+            var _h2=document.getElementById('date_P')+'px';
+            _h2.style.top=_height;
+            // alert(xy);
+            // var xy=function(){
+                // var _h1=$('h1').position();
+                // alert(_h1);
+            // }
 
             function hideEditButton(){
                 var _table=document.getElementById('dataTable');

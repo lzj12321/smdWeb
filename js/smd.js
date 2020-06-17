@@ -24,12 +24,7 @@ $(function(){
                     location.reload();
                 }
             },5000);
-            // history.go(0);
-            // alert('pressed the escape!');
-            // $(".editButton").val()='进入编辑模式';
         }
-
-        
     })
     $.get(init_data_url,function(data){
         var row_items = $.parseJSON(data);//json数据转换成json数组对象
@@ -81,11 +76,12 @@ $(function(){
 
     //操作列的删除事件
     function delHandler(){
-        // var isDel=window.prompt('输入confirm确认删除操作!');
-        // if(isDel!='confirm')
-        // {
-        //     return;
-        // }
+        var isDel=window.prompt('输入confirm确认删除操作!');
+        if(isDel!='confirm')
+        {
+            alert('输入错误！')
+            return;
+        }
 
         var data_id = $(this).attr("dataid");//获取删除的dataid的值，$(this)指点击的这个button
         var model=$(this).parent().parent().children(':first').text();
@@ -104,7 +100,12 @@ $(function(){
 
 
     $("#clearBtn").click(function(){
-        // alert('test');
+        var isClear=window.prompt('输入confirm确认清空操作!');
+        if(isClear!='confirm')
+        {
+            alert('输入错误！')
+            return;
+        }
         var dataRows=$('tr');
         for(var i=1;i<dataRows.length;i++){
             var model=dataRows[i].cells[0].innerHTML;
@@ -140,7 +141,7 @@ $(function(){
         var col_opt = $("<td></td>");
         var confirmBtn = $("<a href='javascript:;' class='optLink'>确认&nbsp;</a>");
         confirmBtn.click(function(){//确认操作
-            var currentRow = $(this).parent().parent();//tr
+            var currentRow = $(this).parent().parent();
             var input_fields = currentRow.find("input");
 
             if(input_fields[0].value==''||input_fields[1].value==''||input_fields[1].value==0)//判断输入是否合法
@@ -174,14 +175,12 @@ $(function(){
                     alert(res);
                 }
             });
-            // history.go(0);
         });
 
         var cancelBtn = $("<a href='javascript:;' class='optLink'>取消</a>");
         cancelBtn.click(function(){//删除操作，取消直接删除行
             $(this).parent().parent().remove();
         });
-
 
         col_opt.append(confirmBtn);
         col_opt.append(cancelBtn);
@@ -224,7 +223,6 @@ $(function(){
             var isSave=window.confirm('保存修改记录?');
             if(!isSave)
             {
-                // history.go(0);
                 return;
             }
             var currentRow = $(this).parent().parent();
@@ -235,8 +233,11 @@ $(function(){
                 if(input_fields[i].value==''){
                     post_fields['col_'+i]=0;
                 }
+                else if(i!=0){
+                    post_fields['col_' + i] = parseInt(input_fields[i].value);
+                }
                 else{
-                    post_fields['col_' + i] = input_fields[i].value;
+                    post_fields['col_' + i] =input_fields[i].value;
                 }
                 if(i!=0&&!checkNumIsValid(post_fields['col_' + i]))
                 {
@@ -254,7 +255,6 @@ $(function(){
                     alert(res);
                 }
             });
-            // history.go(0);
         });
 
 
