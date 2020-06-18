@@ -212,7 +212,7 @@ function edit_row(){
 
 //数据库查询
 function query_sql(){
-    $mysqli = new mysqli('127.0.0.1','lzj','123456','smd');
+    $mysqli = new mysqli('127.0.0.1','root','123456','smd');
     $sqls = func_get_args();//获取函数的所有参数
     foreach ($sqls as $key => $value){
         $query = $mysqli->query($value);

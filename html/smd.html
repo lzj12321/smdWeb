@@ -6,13 +6,12 @@
         <link rel="stylesheet" href="../css/smd.css">
     </head>
     <body>
-        <script src=../js/jquery.js></script>
+        <script type="text/javascript" src="../js/jquery.js"> </script>
+        <!-- <script type="text/javascript" src="../js/smd.js"> </script> -->
         <script>
             var currDateTime=new Date();
             var currHour=currDateTime.getHours();
-            var currYear=currDateTime.getFullYear();
-            var currMonth=currDateTime.getMonth();
-            var currDay=currDateTime.getDate();
+
             if(currHour>=8&&currHour<20)
             {
                 document.write('<h1>SMD生产动态(白班)</h1>');
@@ -22,21 +21,12 @@
                 document.write('<h1>SMD生产动态(夜班)</h1>');
             }
 
+            document.write('<p class="date" id="date_P">'+currDateTime.toLocaleDateString()+'</p>')
 
-            document.write('<p class="date" id="date_P">'+currYear+'-'+currMonth+'-'+currDay+'</h2>')
+            var _top=$('h1').offset().top;
+            var _left=$('h1').offset().left;
+            $('#date_P').offset({top:_top+65,left:_left+1370})
 
-            var xy=$('h1').offset();
-            var _height=$('h1').height();
-            // console.log(xy);
-            console.log(_height);
-
-            var _h2=document.getElementById('date_P')+'px';
-            _h2.style.top=_height;
-            // alert(xy);
-            // var xy=function(){
-                // var _h1=$('h1').position();
-                // alert(_h1);
-            // }
 
             function hideEditButton(){
                 var _table=document.getElementById('dataTable');
@@ -63,6 +53,8 @@
                 }
             }
         </script>
+
+        <div class='headDiv'></div>
         
         <div class="container">
             <input type="button" onclick="edit()" value="进入编辑模式" id='_button' class='editButton'>
@@ -83,7 +75,7 @@
                             for(var i=20;i<32;++i){
                                 document.write('<td>'+(i%24).toString()+':00-'+(i%24+1).toString()+':00</td>')
                             }
-                        } 
+                        }
                     </script>
                     <td style="width:160px;" class='testClass'>
                         <a id="addBtn" class="optLink" href="javascript:;"/>添加</a>
@@ -92,18 +84,56 @@
                 </tr>
             </table>
         </div>
+        <div>
+        <input type="button" value="下一页" id='nextPageButton'>
+        <p id='pageTitle' style="height: 0px;">1</p>
+        <!-- <input type="button" value="PREV" id='prevPageButton' class='optLink' style="position: absolute; left: 100px;"> -->
+        </div>
+        <div>
         <script type="text/javascript" src="../js/jquery.js"> </script>
         <script type="text/javascript" src="../js/smd.js"> </script>
         <script>
             var table=document.getElementById('dataTable');
             table.border='2';
 
-            setTimeout(function(){
+            setInterval(function(){
                 if(document.getElementById('_button').value=='进入编辑模式')
                 {
-                    location.reload();
-                }
-            },5000);
-        </script>
+                    var g_table = $("table.data");//定义全局变量，定位到html的表格
+                    var init_data_url = "../php/smd.php?action=init_data_list";
+                    var currPage=$('#pageTitle').text();
+                    $.get(init_data_url,function(smdData){
+                        var row_items = $.parseJSON(smdData);//json数据转换成json数组对象
+                        var rows=$('tr');
+                        for(var i=1;i<rows.length;++i){
+                            rows[i].remove();
+                        }
+
+                    var startId=0;
+                    if((currPage*maxColNumPerPage)<row_items.length)
+                    {
+                        $("#pageTitle").text(parseInt(currPage)+1);
+                        startId=currPage*maxColNumPerPage;
+                    }
+                    else{
+                        startId=0;
+                        $("#pageTitle").text(1);
+                    }
+                    //js循环遍历
+                    for(var i = startId , j = row_items.length,k=0 ; i < j&&k<maxColNumPerPage ; i++,k++){
+                        var data_dom = create_row(row_items[i]);
+                        g_table.append(data_dom);
+                    }
+                });
+            }
+        },10000);
+
+
+            // setInterval(function(){
+            //     // alert('test');
+            //     var date=new Date();
+            //     document.getElementById('date_P').innerHTML=date.toLocaleString();
+            // },950);
+        </script></div>
     </body>
 </html>
