@@ -97,6 +97,7 @@
             table.border='2';
 
             setInterval(function(){
+                $("#date_P").text(currDateTime.toLocaleDateString());
                 if(document.getElementById('_button').value=='进入编辑模式')
                 {
                     var g_table = $("table.data");//定义全局变量，定位到html的表格
@@ -126,7 +127,7 @@
                     }
                 });
             }
-        },10000);
+        },6000);
 
 
             // setInterval(function(){

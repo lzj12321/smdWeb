@@ -132,4 +132,6 @@ input#nextPageButton{
     color: blue;
     background-color: #4CAF50;
     border: none;
+    top:94%;
+    left:50%
 }
