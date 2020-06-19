@@ -16,8 +16,6 @@ switch($action){
     break;
 }
 
-global $colNum;
-
 //初始化数据
 function init_data_list(){
     $currHour=date('H');

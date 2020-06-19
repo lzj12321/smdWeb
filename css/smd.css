@@ -119,8 +119,8 @@ td.testClass{
 
 p#pageTitle{
     position: absolute;
-    top: 89.8%;
-    left: 49.8%;
+    top: 7%;
+    left: 13.2%;
     font-size: 42px;
     font-weight: bold;
     color: blue;
@@ -140,11 +140,11 @@ input.pageButton{
 }
 
 input#nextPageButton{
-    top:95%;
-    left:54%
+    top:12%;
+    left:18%
 }
 
 input#prevPageButton{
-    top:95%;
-    left:44%
+    top:12%;
+    left:7%
 }

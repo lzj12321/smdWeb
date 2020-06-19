@@ -7,7 +7,6 @@
     </head>
     <body>
         <script type="text/javascript" src="../js/jquery.js"> </script>
-        <!-- <script type="text/javascript" src="../js/smd.js"> </script> -->
         <script>
             var currDateTime=new Date();
             var currHour=currDateTime.getHours();
@@ -77,6 +76,7 @@
                             }
                         }
                     </script>
+                    <td style="width: 160px;">当前班次总产量</td>
                     <td style="width:160px;" class='testClass'>
                         <a id="addBtn" class="optLink" href="javascript:;"/>添加</a>
                         <a id="clearBtn" class="optLink" href="javascript:;"/>清空</a>
@@ -97,7 +97,9 @@
             table.border='2';
 
             setInterval(function(){
+                /////update date title////////////
                 $("#date_P").text(currDateTime.toLocaleDateString());
+
                 if(document.getElementById('_button').value=='进入编辑模式')
                 {
                     var g_table = $("table.data");//定义全局变量，定位到html的表格
@@ -128,7 +130,7 @@
                     }
                 });
             }
-        },2000);
+        },2500);
         </script></div>
     </body>
 </html>

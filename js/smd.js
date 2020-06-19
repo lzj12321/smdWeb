@@ -1,26 +1,35 @@
-var colNum=14;
+var colNum=15;
 var maxColNumPerPage=14;
 
 function create_row(data_item){
     var row_obj = $("<tr></tr>");
+    var dayProductData=0;
     for(var k in data_item){
         if("id" != k){//去除返回字段中的id
             var col_td = $("<td id='_td'></td>");
             col_td.html(data_item[k]);//给col_td写入内容
-            if(k=='c_a'||k=='c_b'){
+            if(k=='c_a'||k=='c_b'||k=='col_0'||k=='col_1'){
                 col_td.addClass('productTd');
             }
             else if(parseInt(data_item[k])<parseInt(data_item['c_b']))
             {
+                dayProductData+=parseInt(data_item[k]);
                 col_td.addClass('unreachProduct');
                 // alert(k);
             }
             else{
+                dayProductData+=parseInt(data_item[k]);
                 col_td.addClass('reachProduct');
             }
             row_obj.append(col_td);//追加DOM
         }
     }
+    //添加总产量列
+    var productData_td=$('<td></td>');
+    productData_td.addClass('dayProductData');
+    productData_td.text(dayProductData);
+    row_obj.append(productData_td);
+
     //自定义按钮
     var delButton = $('<a class="optLink" href="javascript:;">删除&nbsp;</a>');//删除按钮
     delButton.attr("dataid",data_item['id']);//给按钮添加dataid属性
@@ -35,6 +44,8 @@ function create_row(data_item){
     opt_td.append(delButton);
     opt_td.append(editButton);
     row_obj.append(opt_td);
+
+
 
     return row_obj;
 }
@@ -71,7 +82,7 @@ function delHandler(){
     var meRow = $(this).parent().parent();//没有事件
     var editRow = $("<tr></tr>");
     for(var i=0;i<colNum;i++){
-        if(i==0){
+        if(i==0||i==colNum-1){
             var editTd = $("<td><input type='text' readonly class='txtField'/></td>");
         }else{
             var editTd = $("<td><input type='text' class='txtField'/></td>");
@@ -94,7 +105,7 @@ function delHandler(){
         var currentRow = $(this).parent().parent();
         var input_fields = currentRow.find("input");
         var post_fields = {};
-        for(var i=0,j=input_fields.length;i<j;i++){
+        for(var i=0,j=input_fields.length-1;i<j;i++){
             
             if(input_fields[i].value==''){
                 post_fields['col_'+i]=0;
@@ -264,7 +275,7 @@ $(function(){
         //八个文本框
         for(var i=0;i<colNum;i++){
             var col_td;
-            if(i==0){
+            if(i==0||i==colNum-1){
                 col_td = $("<td><input type='text' class='txtField'/></td>");
             }
             else{
