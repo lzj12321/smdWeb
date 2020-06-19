@@ -118,13 +118,17 @@ td.testClass{
 
 
 p#pageTitle{
-    font-size: 30px;
-    color: red;
+    position: absolute;
+    top: 89.8%;
+    left: 49.8%;
+    font-size: 42px;
+    font-weight: bold;
+    color: blue;
     display: none;
 }
 
 
-input#nextPageButton{
+input.pageButton{
     display: none;
     font-weight: bold;
     font-size: 30px;
@@ -132,6 +136,15 @@ input#nextPageButton{
     color: blue;
     background-color: #4CAF50;
     border: none;
-    top:94%;
-    left:50%
+ 
+}
+
+input#nextPageButton{
+    top:95%;
+    left:54%
+}
+
+input#prevPageButton{
+    top:95%;
+    left:44%
 }

@@ -85,9 +85,9 @@
             </table>
         </div>
         <div>
-        <input type="button" value="下一页" id='nextPageButton'>
-        <p id='pageTitle' style="height: 0px;">1</p>
-        <!-- <input type="button" value="PREV" id='prevPageButton' class='optLink' style="position: absolute; left: 100px;"> -->
+        <input type="button" value="下一页" id='nextPageButton' class='pageButton'>
+        <p id='pageTitle'></p>
+        <input type="button" value="上一页" id='prevPageButton' class='pageButton'>
         </div>
         <div>
         <script type="text/javascript" src="../js/jquery.js"> </script>
@@ -102,7 +102,7 @@
                 {
                     var g_table = $("table.data");//定义全局变量，定位到html的表格
                     var init_data_url = "../php/smd.php?action=init_data_list";
-                    var currPage=$('#pageTitle').text();
+                    var currPage=$('#pageTitle').text().split('/')[0];
                     $.get(init_data_url,function(smdData){
                         var row_items = $.parseJSON(smdData);//json数据转换成json数组对象
                         var rows=$('tr');
@@ -111,14 +111,15 @@
                         }
 
                     var startId=0;
+                    var totalPage=Math.ceil(row_items.length/maxColNumPerPage);
                     if((currPage*maxColNumPerPage)<row_items.length)
                     {
-                        $("#pageTitle").text(parseInt(currPage)+1);
+                        $("#pageTitle").text(parseInt(currPage)+1+'/'+totalPage);
                         startId=currPage*maxColNumPerPage;
                     }
                     else{
                         startId=0;
-                        $("#pageTitle").text(1);
+                        $("#pageTitle").text('1/'+totalPage);
                     }
                     //js循环遍历
                     for(var i = startId , j = row_items.length,k=0 ; i < j&&k<maxColNumPerPage ; i++,k++){
@@ -127,14 +128,7 @@
                     }
                 });
             }
-        },6000);
-
-
-            // setInterval(function(){
-            //     // alert('test');
-            //     var date=new Date();
-            //     document.getElementById('date_P').innerHTML=date.toLocaleString();
-            // },950);
+        },2000);
         </script></div>
     </body>
 </html>

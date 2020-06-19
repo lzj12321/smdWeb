@@ -146,8 +146,6 @@ function del_row(){
         $date=date('Y-m-d');
     }
 
-
-
     
     $deleteDataSql="update smdProductData set dataFlag='deleted' where date='".$date.'\' and data_0=\''.$_POST['modelId'].'\';';
     query_sql($deleteDataSql);
@@ -165,7 +163,7 @@ function edit_row(){
     $_dataTable='';
     $currData='';
     $timeFlag='';
-    if($currHour>8&&$currHour<20){
+    if($currHour>=8&&$currHour<20){
         $_dataTable='et_data';
         $timeFlag='day';
     }
@@ -212,7 +210,7 @@ function edit_row(){
 
 //数据库查询
 function query_sql(){
-    $mysqli = new mysqli('127.0.0.1','lzj','123456','smd');
+    $mysqli = new mysqli('127.0.0.1','root','123456','smd');
     $sqls = func_get_args();//获取函数的所有参数
     foreach ($sqls as $key => $value){
         $query = $mysqli->query($value);
