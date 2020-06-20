@@ -107,10 +107,16 @@
                     var currPage=$('#pageTitle').text().split('/')[0];
                     $.get(init_data_url,function(smdData){
                         var row_items = $.parseJSON(smdData);//json数据转换成json数组对象
-                        var rows=$('tr');
-                        for(var i=1;i<rows.length;++i){
-                            rows[i].remove();
-                        }
+
+                        // var rows=$('tr');
+                        // for(var i=1;i<rows.length;++i){
+                        //     rows[i].remove();
+                        // }
+
+                        $("tr").remove(".dataRow");
+
+                        // var rows=$('#dataRow');
+                        // rows.remove();
 
                     var startId=0;
                     var totalPage=Math.ceil(row_items.length/maxColNumPerPage);

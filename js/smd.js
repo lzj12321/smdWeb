@@ -3,6 +3,7 @@ var maxColNumPerPage=14;
 
 function create_row(data_item){
     var row_obj = $("<tr></tr>");
+    row_obj.attr('class','dataRow');
     var dayProductData=0;
     for(var k in data_item){
         if("id" != k){//去除返回字段中的id
@@ -215,10 +216,14 @@ $(function(){
         var currPage= $('#pageTitle').text().split("/")[0];
         $.get(init_data_url,function(smdData){
         var row_items = $.parseJSON(smdData);//json数据转换成json数组对象
-        var rows=$('tr');
-        for(var i=1;i<rows.length;++i){
-            rows[i].remove();
-        }
+
+        // var rows=$('tr');
+        // for(var i=1;i<rows.length;++i){
+        //     rows[i].remove();
+        // }
+                        $("tr").remove(".dataRow");
+
+        // var rows=$('#dataRow').remove();
 
         var startId=0;
         var totalPage=Math.ceil(row_items.length/maxColNumPerPage);
@@ -244,10 +249,14 @@ $(function(){
         var currPage= $('#pageTitle').text().split("/")[0];
         $.get(init_data_url,function(smdData){
         var row_items = $.parseJSON(smdData);//json数据转换成json数组对象
-        var rows=$('tr');
-        for(var i=1;i<rows.length;++i){
-            rows[i].remove();
-        }
+
+        // var rows=$('tr');
+        // for(var i=1;i<rows.length;++i){
+        //     rows[i].remove();
+        // }
+
+                        $("tr").remove(".dataRow");
+        // var rows=$()
 
         var startId=0;
         var totalPage=Math.ceil(row_items.length/maxColNumPerPage);

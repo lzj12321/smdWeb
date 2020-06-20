@@ -73,10 +73,13 @@ input.txtField
 }
 
 td.reachProduct{
+    border-color: goldenrod;
     color:#006600;
 }
 
 td.unreachProduct{
+    
+    border-color: goldenrod;
     color: red;
 }
 
@@ -105,6 +108,7 @@ h1{
     font-size: 90px;
     color:yellowgreen;
 }
+
 p.date{
     font-weight: bold;
     font-size: 40px;
@@ -136,7 +140,6 @@ input.pageButton{
     color: blue;
     background-color: #4CAF50;
     border: none;
- 
 }
 
 input#nextPageButton{
