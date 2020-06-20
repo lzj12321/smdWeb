@@ -6,25 +6,30 @@
         <link rel="stylesheet" href="../css/smd.css">
     </head>
     <body>
+        <div class="pageTitle">
+            <input type="button" value="下一页" id='nextPageButton' class='pageButton'>
+            <p id='pageTitle'></p>
+            <input type="button" value="上一页" id='prevPageButton' class='pageButton'>
+        </div>
         <script type="text/javascript" src="../js/jquery.js"> </script>
         <script>
             var currDateTime=new Date();
             var currHour=currDateTime.getHours();
 
+            var title=$('<h1></h1>');
             if(currHour>=8&&currHour<20)
             {
-                document.write('<h1>SMD生产动态(白班)</h1>');
+                title.text('SMD生产动态(白班)');
             }
             else
             {
-                document.write('<h1>SMD生产动态(夜班)</h1>');
+                title.text('SMD生产动态(夜班)');
             }
-
-            document.write('<p class="date" id="date_P">'+currDateTime.toLocaleDateString()+'</p>')
-
-            var _top=$('h1').offset().top;
-            var _left=$('h1').offset().left;
-            $('#date_P').offset({top:_top+65,left:_left+1370})
+            var dateTitle=$('<p></p>');
+            dateTitle.attr('class','date');
+            dateTitle.text(currDateTime.toLocaleDateString());
+            $('.pageTitle').append(title);
+            $('.pageTitle').append(dateTitle);
 
 
             function hideEditButton(){
@@ -59,35 +64,30 @@
             <input type="button" onclick="edit()" value="进入编辑模式" id='_button' class='editButton'>
             <table class="data" id='dataTable'>
                 <tr>
-                    <td style="width: 250px;">型号</td>
-                    <td>小时计划产量</td>
+                    <td style="width: 300px;">型号</td>
+                    <td style="width: 140px;">小时计划产量</td>
                     <script>
                         var currDateTime=new Date();
                         var currHour=currDateTime.getHours();
                         if(currHour>=8&&currHour<20)
                         {
                             for(var i=8;i<20;++i){
-                                document.write('<td>'+i.toString()+':00-'+(i+1).toString()+':00</td>')
+                                document.write('<td class="dataTableTd">'+i.toString()+':00-'+(i+1).toString()+':00</td>')
                             }
                         }
                         else{
                             for(var i=20;i<32;++i){
-                                document.write('<td>'+(i%24).toString()+':00-'+(i%24+1).toString()+':00</td>')
+                                document.write('<td class="dataTableTd">'+(i%24).toString()+':00-'+(i%24+1).toString()+':00</td>')
                             }
                         }
                     </script>
                     <td style="width: 160px;">当前班次总产量</td>
-                    <td style="width:160px;" class='testClass'>
+                    <td style="width: 160px;" class='testClass'>
                         <a id="addBtn" class="optLink" href="javascript:;"/>添加</a>
                         <a id="clearBtn" class="optLink" href="javascript:;"/>清空</a>
                     </td>
                 </tr>
             </table>
-        </div>
-        <div>
-        <input type="button" value="下一页" id='nextPageButton' class='pageButton'>
-        <p id='pageTitle'></p>
-        <input type="button" value="上一页" id='prevPageButton' class='pageButton'>
         </div>
         <div>
         <script type="text/javascript" src="../js/jquery.js"> </script>
@@ -136,7 +136,7 @@
                     }
                 });
             }
-        },2500);
+        },200500);
         </script></div>
     </body>
 </html>

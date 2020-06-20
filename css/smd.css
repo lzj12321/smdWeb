@@ -74,7 +74,7 @@ input.txtField
 
 td.reachProduct{
     border-color: goldenrod;
-    color:#006600;
+    color:darkgreen;
 }
 
 td.unreachProduct{
@@ -87,9 +87,6 @@ td.productTd{
     color:goldenrod;
 }
 
-/* input{
-    font-size: 30px; */
-/* } */
 
 .optLink
 {
@@ -102,35 +99,38 @@ td.productTd{
     color:#cc0033;
 }
 
+
+td.testClass{
+    display: none;
+    text-align: center;
+}
+
+
+div.pageTitle{
+    position: relative;
+    height: 250px;
+}
+
 h1{
     text-align: center;
-    height: 40px;
+    position: absolute;
+    /* text-align: justify; */
+    /* height: 60px; */
+    /* left:500px; */
+    left: 25%;
     font-size: 90px;
     color:yellowgreen;
 }
 
 p.date{
+    text-align: right;
     font-weight: bold;
     font-size: 40px;
-    /* position: absolute; */
-    color:yellowgreen;
-}
-
-td.testClass{
-    display: none;
-}
-
-
-p#pageTitle{
     position: absolute;
-    top: 7%;
-    left: 13.2%;
-    font-size: 42px;
-    font-weight: bold;
-    color: blue;
-    display: none;
+    color:yellowgreen;
+    left: 70%;
+    top:35%
 }
-
 
 input.pageButton{
     display: none;
@@ -142,12 +142,28 @@ input.pageButton{
     border: none;
 }
 
+p#pageTitle{
+    position: absolute;
+    top: 47%;
+    left: 10.5%;
+    font-size: 42px;
+    font-weight: bold;
+    color: blue;
+    display: none;
+}
+
 input#nextPageButton{
-    top:12%;
-    left:18%
+    position: absolute;
+    top:65%;
+    left:15%;
 }
 
 input#prevPageButton{
-    top:12%;
-    left:7%
+    position: absolute;
+    top:65%;
+    left:5%;
+}
+
+td.dataTableTd{
+    width: 100px;
 }

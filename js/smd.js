@@ -6,13 +6,14 @@ function create_row(data_item){
     row_obj.attr('class','dataRow');
     var dayProductData=0;
     for(var k in data_item){
+        // alert(k);
         if("id" != k){//去除返回字段中的id
             var col_td = $("<td id='_td'></td>");
             col_td.html(data_item[k]);//给col_td写入内容
             if(k=='c_a'||k=='c_b'||k=='col_0'||k=='col_1'){
                 col_td.addClass('productTd');
             }
-            else if(parseInt(data_item[k])<parseInt(data_item['c_b']))
+            else if((parseInt(data_item[k])<parseInt(data_item['c_b']))||(parseInt(data_item[k])<parseInt(data_item['col_1'])))
             {
                 dayProductData+=parseInt(data_item[k]);
                 col_td.addClass('unreachProduct');
@@ -41,13 +42,12 @@ function create_row(data_item){
     //追加操作列
     var opt_td = $('<td></td>');
     opt_td.addClass('testClass');
-    if($('#_button').val()=='退出编辑模式'){opt_td.css('display','block');}
+    if($('#_button').val()=='退出编辑模式'){
+        opt_td.css('display','block');
+    }
     opt_td.append(delButton);
     opt_td.append(editButton);
     row_obj.append(opt_td);
-
-
-
     return row_obj;
 }
 
@@ -75,11 +75,9 @@ function delHandler(){
 }
 
 
-
  //编辑行记录
  function editHandler(){
     var data_id = $(this).attr("dataid");
-    var meButton = $(this);
     var meRow = $(this).parent().parent();//没有事件
     var editRow = $("<tr></tr>");
     for(var i=0;i<colNum;i++){
@@ -129,7 +127,7 @@ function delHandler(){
                 var newUpdateRow = create_row(post_fields);
                 currentRow.replaceWith(newUpdateRow);
             }else{
-                alert('编辑行记录!');
+                // alert('编辑行记录!');
                 alert(res);
             }
         });
@@ -198,12 +196,11 @@ $(function(){
         var dataRows=$('tr');
         for(var i=1;i<dataRows.length;i++){
             var model=dataRows[i].cells[0].innerHTML;
-            var dataId=dataRows[i].cells[14].children[0].getAttribute('dataid');
+            var dataId=dataRows[i].cells[15].children[0].getAttribute('dataid');
             $.post("../php/smd.php?action=del_row",{dataid:dataId,modelId:model},function(res){
                 // $.post("../php/smd.php?action=del_row",{dataid:data_id},function(res){
                     if(res == "ok"){
                         location.reload();
-                        // dataRows[i].del();
                     }else{
                         alert('操作列的删除事件!');
                         alert(res);
@@ -216,15 +213,7 @@ $(function(){
         var currPage= $('#pageTitle').text().split("/")[0];
         $.get(init_data_url,function(smdData){
         var row_items = $.parseJSON(smdData);//json数据转换成json数组对象
-
-        // var rows=$('tr');
-        // for(var i=1;i<rows.length;++i){
-        //     rows[i].remove();
-        // }
-                        $("tr").remove(".dataRow");
-
-        // var rows=$('#dataRow').remove();
-
+        $("tr").remove(".dataRow");
         var startId=0;
         var totalPage=Math.ceil(row_items.length/maxColNumPerPage);
         if((currPage*maxColNumPerPage)<row_items.length)
@@ -245,19 +234,10 @@ $(function(){
     })
 
     $("#prevPageButton").click(function(){
-        // alert('test');
         var currPage= $('#pageTitle').text().split("/")[0];
         $.get(init_data_url,function(smdData){
         var row_items = $.parseJSON(smdData);//json数据转换成json数组对象
-
-        // var rows=$('tr');
-        // for(var i=1;i<rows.length;++i){
-        //     rows[i].remove();
-        // }
-
-                        $("tr").remove(".dataRow");
-        // var rows=$()
-
+        $("tr").remove(".dataRow");
         var startId=0;
         var totalPage=Math.ceil(row_items.length/maxColNumPerPage);
         if(currPage==1)
@@ -284,7 +264,7 @@ $(function(){
         //八个文本框
         for(var i=0;i<colNum;i++){
             var col_td;
-            if(i==0||i==colNum-1){
+            if(i==colNum-1||i==0){
                 col_td = $("<td><input type='text' class='txtField'/></td>");
             }
             else{
@@ -307,7 +287,7 @@ $(function(){
             input_fields[1].value=parseInt(input_fields[1].value);//清除产量中前面的0
             
             var post_fields = {};//发送数据对象
-            for(var i=0,j=input_fields.length;i<j;i++)
+            for(var i=0,j=input_fields.length-1;i<j;i++)
             {
                 post_fields['col_' + i] = input_fields[i].value;
                 if(input_fields[i].value==''){
@@ -326,7 +306,7 @@ $(function(){
                     var postAddRow = create_row(post_fields);
                     currentRow.replaceWith(postAddRow);
                 }else{
-                    alert('添加行记录!');
+                    // alert('添加行记录!');
                     alert(res);
                 }
             });
