@@ -320,8 +320,11 @@ $(function(){
         col_opt.append(confirmBtn);
         col_opt.append(cancelBtn);
         addRow.append(col_opt);
-
-        g_table.append(addRow);
+        
+        $(".firstRow").after(addRow);
+        
+        // g_table.prepend(addRow);
+        // g_table.append(addRow);
     });
 
 
