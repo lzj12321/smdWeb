@@ -3,14 +3,18 @@
         <meta charset="utf8">
     </head>
     <script src="../js/jquery.js"></script>
-
+<body>
+    <table>
+        <tr>1</tr>
+        <tr>2</tr>
+        <tr>3</tr>
+    </table>
+</body>
     <script>
-        var x;
-        $().ready(function(){
-            alert(x);
-            // alert('test');
-            x=12;
-            alert(x);
-        })
+        // console.log($("tr:eq(1)"));
+        // alert($("tr:eq(1)");
+        $('tr').each(function (param){ 
+            alert(param);
+         })
     </script>
 </html>

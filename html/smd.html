@@ -31,7 +31,6 @@
             $('.pageTitle').append(title);
             $('.pageTitle').append(dateTitle);
 
-
             function hideEditButton(){
                 var _table=document.getElementById('dataTable');
                 var _1table=document.getElementById('_td');
@@ -48,12 +47,6 @@
                 }else{
                     _button.value='进入编辑模式';
                     location.reload();
-                    setTimeout(function(){
-                        if(document.getElementById('_button').value=='进入编辑模式')
-                        {
-                            location.reload();
-                        }
-                        },5000);
                 }
             }
         </script>
@@ -93,12 +86,10 @@
         <script type="text/javascript" src="../js/jquery.js"> </script>
         <script type="text/javascript" src="../js/smd.js"> </script>
         <script>
-            var table=document.getElementById('dataTable');
-            table.border='2';
-
             setInterval(function(){
                 /////update date title////////////
-                $("#date_P").text(currDateTime.toLocaleDateString());
+                $(".date").text(currDateTime.toLocaleDateString());
+                clearDayProductionData();
 
                 if(document.getElementById('_button').value=='进入编辑模式')
                 {
@@ -106,18 +97,8 @@
                     var init_data_url = "../php/smd.php?action=init_data_list";
                     var currPage=$('#pageTitle').text().split('/')[0];
                     $.get(init_data_url,function(smdData){
-                        var row_items = $.parseJSON(smdData);//json数据转换成json数组对象
-
-                        // var rows=$('tr');
-                        // for(var i=1;i<rows.length;++i){
-                        //     rows[i].remove();
-                        // }
-
-                        $("tr").remove(".dataRow");
-
-                        // var rows=$('#dataRow');
-                        // rows.remove();
-
+                    var row_items = $.parseJSON(smdData);//json数据转换成json数组对象
+                    $("tr").remove(".dataRow");
                     var startId=0;
                     var totalPage=Math.ceil(row_items.length/maxColNumPerPage);
                     if((currPage*maxColNumPerPage)<row_items.length)
@@ -136,7 +117,7 @@
                     }
                 });
             }
-        },1500);
+        },2000);
         </script></div>
     </body>
 </html>
