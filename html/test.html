@@ -10,11 +10,34 @@
         <tr>3</tr>
     </table>
 </body>
+    <input type="text">
     <script>
+
+        $(window).unload(function () {
+            alert('bye bye!');
+          })
         // console.log($("tr:eq(1)"));
         // alert($("tr:eq(1)");
         $('tr').each(function (param){ 
-            alert(param);
+            // alert(param);
          })
+
+         $('input').focus(function(){
+            //  alert('test');
+             $('input').val('test');
+             $('input').css('width','300px');
+             $('input').css('font-size','30px');
+         })
+
+
+         $('input').blur(function () {
+             $('input').val('test1111111111111');
+           })
+
+
+         $('input').change(function () {
+             alert('content changed!');
+           })
     </script>
+
 </html>
