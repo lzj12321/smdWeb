@@ -88,6 +88,7 @@
         <script>
             setInterval(function(){
                 /////update date title////////////
+                var currDateTime=new Date();
                 $(".date").text(currDateTime.toLocaleDateString());
                 clearDayProductionData();
 

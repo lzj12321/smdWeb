@@ -42,7 +42,8 @@ function init_data_list(){
     while ($row = $query->fetch_assoc()){
         $data[] = $row;
     }
-    echo json_encode($data);exit();
+    echo json_encode($data);
+    exit();
 }
 
 //新增行记录
@@ -125,7 +126,8 @@ function add_row(){
         if($currHour>=8&&$currHour<20){
         echo $d['LD'];}
     }else{
-        echo "db error...";exit();
+        echo "db error...";
+        exit();
     }
 
     if($res22 = query_sql($sql22,$lastInsertId)){
@@ -160,9 +162,11 @@ function del_row(){
     query_sql($deleteDataSql);
     // echo $deleteDataSql;
     if(query_sql($sql1)&&query_sql($sql2)){
-        echo "ok";exit();
+        echo "ok";
+        exit();
     }else{
-        echo "db error...";exit();
+        echo "db error...";
+        exit();
     }
 }
 
