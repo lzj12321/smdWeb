@@ -95,7 +95,8 @@
                 if(document.getElementById('_button').value=='进入编辑模式')
                 {
                     var currMinute=currDateTime.getMinutes();
-                    if(currMinute==0){
+                    var currHour=currDateTime.getHours();
+                    if(currMinute==0&&currHour==0){
                         location.reload();
                     }
 
