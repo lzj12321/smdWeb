@@ -101,7 +101,6 @@ function delHandler(){
         var input_fields = currentRow.find("input");
         var post_fields = {};
         for(var i=0,j=input_fields.length-1;i<j;i++){
-            
             if(input_fields[i].value==''){
                 post_fields['col_'+i]=0;
             }
@@ -227,8 +226,8 @@ $(function(){
         var totalPage=Math.ceil(row_items.length/maxColNumPerPage);
         if((currPage*maxColNumPerPage)<row_items.length)
         {
-                $("#pageTitle").text(parseInt(currPage)+1+'/'+totalPage);
-                startId=currPage*maxColNumPerPage;
+            $("#pageTitle").text(parseInt(currPage)+1+'/'+totalPage);
+            startId=currPage*maxColNumPerPage;
         }
         else{
             startId=0;

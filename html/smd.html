@@ -94,6 +94,11 @@
 
                 if(document.getElementById('_button').value=='进入编辑模式')
                 {
+                    var currMinute=currDateTime.getMinutes();
+                    if(currMinute==0){
+                        location.reload();
+                    }
+
                     var g_table = $("table.data");//定义全局变量，定位到html的表格
                     var init_data_url = "../php/smd.php?action=init_data_list";
                     var currPage=$('#pageTitle').text().split('/')[0];
@@ -116,9 +121,9 @@
                         var data_dom = create_row(row_items[i]);
                         g_table.append(data_dom);
                     }
-                });
-            }
-        },2000);
+                    });
+                }
+            },20000);
         </script></div>
     </body>
 </html>
